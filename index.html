@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión Comercial - Comercializadora Coile S.A</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background: #003366; color: #fff; padding: 15px; text-align: center; }
+    nav { background: #f4f4f4; padding: 10px; display: flex; gap: 15px; }
+    nav button { padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+    section { display: none; padding: 20px; }
+    section.active { display: block; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 6px; text-align: left; }
+    h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ACTA DE ENTREGA</h1>
+    <h2>COMERCIALIZADORA COILE S.A - AGENCIA SANTA ROSA</h2>
+  </header>
+  <nav>
+    <button onclick="mostrarModulo('actas')">Actas</button>
+    <button onclick="mostrarModulo('reporte')">Reporte</button>
+    <button onclick="mostrarModulo('inventario')">Inventario</button>
+    <button onclick="mostrarModulo('clientes')">Clientes</button>
+    <button onclick="mostrarModulo('vendedores')">Vendedores</button>
+  </nav>
+  
+  <section id="actas" class="active">
+    <h2>Nueva Acta</h2>
+    <form id="actaForm">
+      <label>Número Acta: <input type="text" id="numeroActa" readonly></label><br>
+      <label>Fecha: <input type="text" id="fecha" readonly></label><br>
+      <label>Código Cliente: <input type="text" id="codigoCliente" oninput="autocompletarCliente()"></label><br>
+      <label>Nombre: <input type="text" id="nombreCliente" readonly></label><br>
+      <label>Cédula/RUC: <input type="text" id="cedulaCliente" readonly></label><br>
+      <label>Dirección: <input type="text" id="direccionCliente" readonly></label><br>
+      <label>Vendedor: <input type="text" id="vendedorCliente" readonly></label><br>
+      <label>Producto: <input type="text" id="producto"></label><br>
+      <label>Cantidad: <input type="number" id="cantidad"></label><br>
+      <label>Descripción: <textarea id="descripcion"></textarea></label><br>
+      <p>Entregado por: Comercializadora Coile S.A</p>
+      <p>Recibido por: <span id="recibidoCliente"></span></p>
+      <button type="button" onclick="guardarActa()">Guardar</button>
+      <button type="button" onclick="imprimirActa()">Imprimir</button>
+    </form>
+  </section>
+
+  <section id="reporte">
+    <h2>Reporte General</h2>
+    <div id="filtros">
+      <label>Vendedor: <input type="text" id="filtroVendedor"></label>
+      <label>Producto: <input type="text" id="filtroProducto"></label>
+      <label>Fecha: <input type="date" id="filtroFecha"></label>
+      <button onclick="filtrarReporte()">Filtrar</button>
+    </div>
+    <table id="tablaActas">
+      <thead>
+        <tr><th>N°</th><th>Cliente</th><th>Producto</th><th>Cantidad</th><th>Vendedor</th><th>Fecha</th><th>Acciones</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="inventario">
+    <h2>Inventario</h2>
+    <form id="productoForm">
+      <label>Código: <input type="text" id="codigoProducto"></label>
+      <label>Nombre: <input type="text" id="nombreProducto"></label>
+      <label>Stock Inicial: <input type="number" id="stockInicial"></label>
+      <button type="button" onclick="guardarProducto()">Guardar Producto</button>
+    </form>
+    <table id="tablaInventario">
+      <thead>
+        <tr><th>Código</th><th>Nombre</th><th>Stock</th><th>Acciones</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="clientes">
+    <h2>Clientes</h2>
+    <form id="clienteForm">
+      <label>Código: <input type="text" id="codigoNuevoCliente"></label>
+      <label>Nombre: <input type="text" id="nombreNuevoCliente"></label>
+      <label>Cédula: <input type="text" id="cedulaNuevoCliente"></label>
+      <label>Dirección: <input type="text" id="direccionNuevoCliente"></label>
+      <label>Vendedor: <input type="text" id="vendedorNuevoCliente"></label>
+      <button type="button" onclick="guardarCliente()">Guardar Cliente</button>
+    </form>
+    <table id="tablaClientes">
+      <thead><tr><th>Código</th><th>Nombre</th><th>Cédula</th><th>Dirección</th><th>Vendedor</th><th>Acciones</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="vendedores">
+    <h2>Vendedores</h2>
+    <form id="vendedorForm">
+      <label>Código: <input type="text" id="codigoNuevoVendedor"></label>
+      <label>Nombre: <input type="text" id="nombreNuevoVendedor"></label>
+      <button type="button" onclick="guardarVendedor()">Guardar Vendedor</button>
+    </form>
+    <table id="tablaVendedores">
+      <thead><tr><th>Código</th><th>Nombre</th><th>Acciones</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
